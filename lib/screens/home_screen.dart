@@ -1,3 +1,4 @@
+import 'package:bloc_counter/bloc/counter_bloc.dart';
 import 'package:bloc_counter/cubit/counter_cubit.dart';
 import 'package:bloc_counter/screens/second_screen.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final counterCubit =  BlocProvider.of<CounterCubit>(context);
+    final counterBloc =  BlocProvider.of<CounterBloc>(context);
 
     return Scaffold(
         appBar: AppBar(
@@ -24,8 +25,7 @@ class MyHomePage extends StatelessWidget {
               const Text(
                 'You have pushed the button this many times:',
               ),
-              BlocBuilder<CounterCubit, int>(
-                bloc: counterCubit,
+              BlocBuilder<CounterBloc, int>(
                 builder: (BuildContext context, int counter) =>Text(
                   '$counter',
                   style: Theme.of(context).textTheme.headlineMedium,
@@ -35,6 +35,7 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'next_tag',
         onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => SecondScreen()));
         },
