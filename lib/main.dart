@@ -1,8 +1,9 @@
-import 'package:bloc_counter/bloc/counter_bloc.dart';
-import 'package:bloc_counter/cubit/counter_cubit.dart';
-import 'package:bloc_counter/screens/home_screen.dart';
+
+import 'package:bloc_counter/cubit/todo_cubit.dart';
+import 'package:bloc_counter/screens/add_todo_screen.dart';
+import 'package:bloc_counter/screens/todo_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart%20';
 
 void main() {
   runApp(const MyApp());
@@ -14,18 +15,19 @@ class MyApp extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => CounterCubit()),
-        BlocProvider(create: (_) => CounterBloc())
-      ],
+    return BlocProvider(
+      create: (context) => TodoCubit(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const MyHomePage(title: 'Home Page'),
+        initialRoute: '/',
+        routes: {
+          '/': (_) => const TodoList(),
+          '/add-todo': (_) => const AddTodoPage()
+        },
       ),
     );
   }
